@@ -1,5 +1,6 @@
 import csv
 import json
+import random
 
 # transform a single question and answer,
 # TODO: instead of return array data - q and a all together, concert to JSON
@@ -15,4 +16,6 @@ if __name__=="__main__":
         reader = csv.reader(csvfile, delimiter=",")
         headers = next(reader)
         data = list(reader)
-        generateResponse(data[0])
+        len = len(data);
+        index = random.randint(0, len)
+        generateResponse(data[index])

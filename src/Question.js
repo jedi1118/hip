@@ -5,25 +5,22 @@ import './Question.css';
 class Question extends React.Component {
     constructor(props) {
         super(props);
-        // hardcode for now, should come from ai/be
-        const q = [2,'Insulin produced by molecular cloning:','is of pig origin','is a recombinant protein','is made by the human pancreas','is recombinant DNA,is a recombinant protein'];        
         this.state = {
-            quesion: q[1],
-            answers: q.slice(2)
         };
-        this.handleClick = this.handleClick.bind(this);
+        this.getQuestion = this.getQuestion.bind(this);
+        this.getQuestion();// get the initial question from py
     }
 
-    handleClick() {
+    getQuestion() {
         const _this = this;
         let myPromise = new Promise(function() {
             let req = new XMLHttpRequest();
-            // TODO
+            // TODO: send answers
             req.open('GET', "http://localhost:8080/cgi-bin/q.py");
             req.onload = function() {
                 if (req.status == 200) {
                     const data = JSON.parse(req.response);
-                    _this.setState ({//TODO: null chcek etc.
+                    _this.setState ({//TODO: null check etc.
                         quesion: data[1],
                         answers: data.slice(2)
                     });
@@ -39,11 +36,11 @@ class Question extends React.Component {
         return <>
                 <div className="Title">{this.state.quesion}</div>
                 <ul>
-                {this.state.answers.map((itm) => { 
+                {this.state.answers && this.state.answers.map((itm) => { 
                     return <li key={this.state.answers.id}><input type="checkbox"></input><span>{itm}</span></li> })}
                 </ul>
                 <button className="Submit" type="button"
-                    onClick={() => {this.handleClick()}}>Submit</button>
+                    onClick={() => {this.getQuestion()}}>Submit</button>
             </>
     } 
 }
