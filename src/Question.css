@@ -1,6 +1,9 @@
+.Title {
+    font-weight: 600;    
+}
 ul li {
     text-align: left;
-    font-size: 300;
+    font-weight: 300;
     list-style: none;
 }
   
