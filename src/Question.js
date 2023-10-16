@@ -14,8 +14,25 @@ class Question extends React.Component {
         this.handleClick = this.handleClick.bind(this);
     }
 
-    handleClick(idx) {
-
+    handleClick() {
+        console.log('.....');
+        let myPromise = new Promise(function() {
+            let req = new XMLHttpRequest();
+            // TODO
+            req.open('GET', "http://localhost:8080/cgi-bin/q.py");
+            req.onload = function() {
+                if (req.status == 200) {
+                    this.state = {// TODO: this part not wuite working
+                        quesion: req.response[1],
+                        answers: req.response.slice(2)
+                    };
+                    console.log(this.state);
+                } else {
+                    console.log("Error");
+                }
+            };
+            req.send();
+        });
     }
 
     render () {
@@ -23,9 +40,10 @@ class Question extends React.Component {
                 <div className="Title">{this.state.quesion}</div>
                 <ul>
                 {this.state.answers.map((itm) => { 
-                    return <li><input type="checkbox"></input><span>{itm}</span></li> })}
+                    return <li key={this.state.answers.id}><input type="checkbox"></input><span>{itm}</span></li> })}
                 </ul>
-                <inpu className="Submit" type="button">Submit</inpu>
+                <button className="Submit" type="button"
+                    onClick={() => {this.handleClick()}}>Submit</button>
             </>
     } 
 }

@@ -2,6 +2,7 @@ import csv
 # transform a single question and answer,
 # TODO: instead of return array data - q and a all together, concert to JSON
 def transformData(data):
+    print ("Access-Control-Allow-Origin:*")# just for local test only!!!
     print ("Content-type:application/json\r\n\r\n")
     print (data)
 
