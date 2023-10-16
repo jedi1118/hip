@@ -17,5 +17,5 @@ if __name__=="__main__":
         headers = next(reader)
         data = list(reader)
         len = len(data);
-        index = random.randint(0, len)
+        index = random.randint(0, len-1)
         generateResponse(data[index])
