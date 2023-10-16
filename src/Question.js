@@ -15,18 +15,18 @@ class Question extends React.Component {
     }
 
     handleClick() {
-        console.log('.....');
+        const _this = this;
         let myPromise = new Promise(function() {
             let req = new XMLHttpRequest();
             // TODO
             req.open('GET', "http://localhost:8080/cgi-bin/q.py");
             req.onload = function() {
                 if (req.status == 200) {
-                    this.state = {// TODO: this part not wuite working
-                        quesion: req.response[1],
-                        answers: req.response.slice(2)
-                    };
-                    console.log(this.state);
+                    const data = JSON.parse(req.response);
+                    _this.setState ({//TODO: null chcek etc.
+                        quesion: data[1],
+                        answers: data.slice(2)
+                    });
                 } else {
                     console.log("Error");
                 }

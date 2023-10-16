@@ -1,16 +1,18 @@
 import csv
+import json
+
 # transform a single question and answer,
 # TODO: instead of return array data - q and a all together, concert to JSON
-def transformData(data):
+def generateResponse(data):
     print ("Access-Control-Allow-Origin:*")# just for local test only!!!
     print ("Content-type:application/json\r\n\r\n")
-    print (data)
+    print (json.dumps(data))
 
-# TODO: this need to get data from ai - all py api???
+# TODO: this needs to get data from ai - call py api???
 if __name__=="__main__":
     # Parse the CSV file
     with open("./cgi-bin/testbench.csv", "r") as csvfile:
         reader = csv.reader(csvfile, delimiter=",")
         headers = next(reader)
         data = list(reader)
-        transformData(data[0]);
+        generateResponse(data[0])
